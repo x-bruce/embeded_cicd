@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  build:
+  build_and_cppcheck:
     runs-on: ubuntu-latest
     container: brucezcg/stm32-dev:latest
     steps:
