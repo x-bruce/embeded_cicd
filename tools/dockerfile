@@ -1,0 +1,35 @@
+FROM ubuntu:18.04
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    gcc-arm-none-eabi \
+    openocd \
+    cmake \
+    git \
+    gdb \
+    wget \
+    curl \
+    bzip2 \
+    unzip \
+    make \
+    cppcheck \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user named 'bruce'
+RUN useradd -rm -d /home/bruce -s /bin/bash -g root -G sudo -u 1001 bruce
+
+USER bruce
+
+# Set the working directory
+WORKDIR /home/bruce
+
+# Make a directory for the project
+RUN mkdir -p /home/bruce/projects
+
+VOLUME [ "/home/bruce/projects" ]
+
+# Copy the current directory contents into the container at /app
+#COPY . /app
+
+# Run a command to verify the setup
+CMD ["echo", "Docker setup complete"]
